@@ -1540,8 +1540,8 @@ window.hideForm = hideForm;
             }
         });
 
- let fechaSeleccionadaGlobal = null;
-    let duracionSeleccionadaGlobal = null;
+window.fechaSeleccionadaGlobal = null;
+window.duracionSeleccionadaGlobal = null;
 
     flatpickr("#fecha", {
       dateFormat: "Y-m-d",
@@ -1597,8 +1597,8 @@ window.hideForm = hideForm;
     }
 
     function mostrarFormulario(fecha, duracion) {
-      let fechaSeleccionadaGlobal = fecha;
-      let duracionSeleccionadaGlobal = duracion;
+      window.fechaSeleccionadaGlobal = fecha;
+      window.duracionSeleccionadaGlobal = duracion;
 
       const resultados = document.getElementById("formularioDatos");
 	document.getElementById("formularioDatos").style.display = "block";
@@ -1644,7 +1644,7 @@ window.mostrarFormulario = mostrarFormulario;
         motivo: document.getElementById("motivo").value
       };
 
-      crearCita(fechaSeleccionadaGlobal, duracionSeleccionadaGlobal, datos);
+      crearCita(window.fechaSeleccionadaGlobal, window.duracionSeleccionadaGlobal, datos);
     }
 
     async function crearCita(fechaInicio, duracionMinutos, datosCliente) {
@@ -1685,7 +1685,7 @@ window.mostrarFormulario = mostrarFormulario;
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "x-api-token": "KiULvyuin6xWlicdccn3b9vgerWpM7kB1dAWhaqi"
+            "x-api-token": "GoEH5j9TMjWhWojrOLKT8qYEXbPlMH7atIo8Nsxh"
           },
           body: JSON.stringify(data)
         });
