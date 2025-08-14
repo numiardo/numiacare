@@ -294,15 +294,141 @@ z-index: 9999;
     }
     
     /* Estilos para el selector de especialidades */
-    .especialidad-selector {
-      margin-bottom: 20px;
+    .selectors-container {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .especialidad-selector,
+    .sucursal-selector,
+    .sala-selector {
+      flex: 1;
+      min-width: 250px;
+      margin-bottom: 0;
+    }
+
+    /* Estilos para la sección "Nuestro Sello" */
+    .nuestro-sello-container {
+      background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
+      border: 2px solid #e8eaff;
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(134, 61, 255, 0.1);
+    }
+
+    .nuestro-sello-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #863DFF, #9f5fff, #863DFF);
+    }
+
+    .nuestro-sello-icon {
+      margin-bottom: 1.5rem;
+    }
+
+    .nuestro-sello-icon i {
+      font-size: 3rem;
+      color: #863DFF;
+      background: linear-gradient(135deg, #863DFF, #9f5fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nuestro-sello-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 1.5rem;
+      line-height: 1.3;
+    }
+
+    .text-highlight {
+      background: linear-gradient(135deg, #863DFF, #9f5fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+    }
+
+    .nuestro-sello-description {
+      font-size: 1.1rem;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .nuestro-sello-features {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: white;
+      border: 2px solid #e8eaff;
+      border-radius: 25px;
+      color: #863DFF;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .feature-item:hover {
+      border-color: #863DFF;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(134, 61, 255, 0.2);
+    }
+
+    .feature-item i {
+      font-size: 1.2rem;
+    }
+
+    /* Responsive para la sección nuestro sello */
+    @media (max-width: 768px) {
+      .nuestro-sello-container {
+        padding: 2rem 1.5rem;
+        margin: 0 1rem;
+      }
+
+      .nuestro-sello-title {
+        font-size: 1.8rem;
+      }
+
+      .nuestro-sello-description {
+        font-size: 1rem;
+      }
+
+      .nuestro-sello-features {
+        gap: 1rem;
+      }
+
+      .feature-item {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
     }
     
     .especialidad-cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 12px;
-      max-height: 300px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      max-height: 200px;
       overflow-y: auto;
     }
     
@@ -390,7 +516,7 @@ z-index: 9999;
       padding: 20px;
       border-radius: 8px;
       width: 95%;
-      max-width: 700px;
+      max-width: 1200px;
       max-height: 90vh;
       overflow-y: auto;
       position: relative;
@@ -522,7 +648,107 @@ z-index: 9999;
          #formModal .btn-primary:hover {
              background-color: #863DFF !important;
          }
-   
+         
+         /* Estilos para la información del turno */
+         .turn-info-display {
+             background: linear-gradient(135deg, #3B82F6, #1D4ED8);
+             border-radius: 0.75rem;
+             box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+             border: 1px solid rgba(255, 255, 255, 0.1);
+         }
+         
+         .turn-info-display h4 {
+             color: #ffffff;
+             font-weight: 600;
+             margin-bottom: 1rem;
+         }
+         
+         .turn-info-display .info-row {
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+             padding: 0.5rem 0;
+             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+         }
+         
+         .turn-info-display .info-row:last-child {
+             border-bottom: none;
+         }
+         
+         .turn-info-display .info-label {
+             color: rgba(255, 255, 255, 0.9);
+             font-weight: 500;
+         }
+         
+                  .turn-info-display .info-value {
+             color: #ffffff;
+             font-weight: 700;
+             font-size: 1.1rem;
+         }
+         
+         /* Estilos para la información del turno dentro del modal */
+         .turn-info-container {
+             padding: 20px;
+         }
+         
+         .turn-info-grid {
+             display: grid;
+             gap: 20px;
+             margin: 20px 0;
+         }
+         
+         .turn-info-item {
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+             padding: 15px;
+             background: linear-gradient(135deg, #f8f9ff, #e6ecf9);
+             border-radius: 10px;
+             border: 1px solid #e0e7ff;
+         }
+         
+         .turn-info-label {
+             font-weight: 600;
+             color: #374151;
+             font-size: 0.95rem;
+         }
+         
+         .turn-info-value {
+             font-weight: 700;
+             color: #863DFF;
+             font-size: 1.1rem;
+             text-align: right;
+         }
+         
+         @media (max-width: 768px) {
+             .turn-info-item {
+                 flex-direction: column;
+                 align-items: flex-start;
+                 gap: 8px;
+             }
+             
+             .turn-info-value {
+                 text-align: left;
+                 width: 100%;
+             }
+         }
+         
+         /* Estilos para el contenedor de errores */
+         .error-container {
+             text-align: center;
+             padding: 20px;
+         }
+         
+         .error-icon {
+             margin-bottom: 20px;
+         }
+         
+         .error-message {
+             color: #6c757d;
+             font-size: 1rem;
+             line-height: 1.5;
+         }
+    
     /* --- Variables de color --- */
     :root {
       --numia-azul: #863DFF;
@@ -931,6 +1157,7 @@ z-index: 9999;
     </div>
   </div>
 
+  
   <!-- TARJETAS DE SERVICIOS -->
   <main class="container mb-5">
     <div class="row g-4 justify-content-center main-cards">
@@ -964,9 +1191,9 @@ z-index: 9999;
             <img src="images/triage.png" alt="Triage">
           </div>
           <div class="card-body">
-            <h5 class="card-title">Triage</h5>
+            <h5 class="card-title">Estoy en la guardia</h5>
             <p class="card-text">Evaluación inicial para priorizar atención.</p>
-            <button class="btn btn-primary rounded-pill px-4 mt-2">Iniciar</button>
+            <button class="btn btn-primary rounded-pill px-4 mt-2" onclick="showFormModal()">Iniciar</button>
           </div>
         </div>
       </div>
@@ -984,45 +1211,41 @@ z-index: 9999;
       </div>
     </div>
 
-    <!-- SECCIÓN ESPECIALIDADES / CONSULTAS -->
-    <div class="rates-section mt-5 mb-4">
-      <div class="rates-col-table">
-        <div class="d-flex mb-2">
-          <button class="rates-tab-btn active" id="tabEspecial" onclick="showRatesTab('especial')">Especialidades</button>
-          <button class="rates-tab-btn" id="tabConsulta" onclick="showRatesTab('consulta')">Consultas</button>
+    <!-- SECCIÓN NUESTRO SELLO -->
+  <div class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center">
+        <div class="nuestro-sello-container">
+          <div class="nuestro-sello-icon">
+            <i class="bi bi-star-fill"></i>
+          </div>
+          <h2 class="nuestro-sello-title">En nuestras Clínicas nuestro sello es ser <span class="text-highlight">Memorables</span></h2>
+          <p class="nuestro-sello-description">
+            Cada paciente es único y merece una atención excepcional. Nos comprometemos a brindar experiencias 
+            de salud que trasciendan lo ordinario, creando momentos memorables en cada interacción.
+          </p>
+          <div class="nuestro-sello-features">
+            <div class="feature-item">
+              <i class="bi bi-heart-pulse"></i>
+              <span>Atención Personalizada</span>
+            </div>
+            <div class="feature-item">
+              <i class="bi bi-shield-check"></i>
+              <span>Calidad Garantizada</span>
+            </div>
+            <div class="feature-item">
+              <i class="bi bi-people"></i>
+              <span>Equipo Comprometido</span>
+            </div>
+          </div>
         </div>
-        <table class="rates-table" id="tablaEspecial">
-          <thead><tr><th>Especialidad</th><th>Médico</th><th>Horario</th></tr></thead>
-          <tbody>
-            <tr><td>Cardiología</td><td>Dr. Pérez</td><td>08:00–14:00</td></tr>
-            <tr><td>Pediatría</td><td>Dra. López</td><td>14:00–18:00</td></tr>
-            <tr><td>Ortopedia</td><td>Dr. Ramírez</td><td>09:00–17:00</td></tr>
-          </tbody>
-        </table>
-        <table class="rates-table" id="tablaConsulta" style="display:none;">
-          <thead><tr><th></th><th>Consulta</th><th>Procedimiento</th></tr></thead>
-          <tbody>
-            <tr><td>Básica</td><td>$500</td><td>–</td></tr>
-            <tr><td>Especializada</td><td>$1,000</td><td>–</td></tr>
-            <tr><td>Procedimiento menor</td><td>–</td><td>$5,000</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="rates-col-side text-start">
-        <i class="bi bi-heart-pulse"></i>
-        <h5>Tus servicios</h5>
-        <p><strong>Plan Básico:</strong> $1,200 MXN/mes</p>
-        <p>Incluye consultas virtuales y 10% descuento en laboratorio.</p>
-        <button class="btn btn-primary" disabled>Ver detalles</button>
       </div>
     </div>
+  </div>
+
   </main>
 
-  <!-- PIE -->
-  <footer class="bg-light text-center py-3 mt-auto border-top">
-    <small>&copy; NumiaCare. Todos los derechos reservados.</small>
-     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-  </footer>
+
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -1076,7 +1299,7 @@ z-index: 9999;
   <!-- Chat -->
   <iframe
     id="numia-chat-bubble"
-    src="https://filavirtual.preprod.debmedia.com/Numiabot/#/sx0tGcWr9MQefU1kZ0rk"
+    src="https://filavirtual.preprod.debmedia.com/Numiabot/#/QSUhg5KzUl0xpYKvglOS"
     allow="camera; microphone"
     style="position:fixed;bottom:24px;right:24px;width:370px;height:550px;border:none;z-index:9999;border-radius:18px;overflow:hidden;display:none;"
   ></iframe>
@@ -1100,61 +1323,63 @@ z-index: 9999;
 
 
 
-      <div class="especialidad-selector">
-        <label class="selector-label">Selecciona una especialidad:</label>
-        <div id="especialidadCombo" class="especialidad-cards">
-          <div class="especialidad-card" data-value="cardiologia">
-            <i class="bi bi-heart-pulse especialidad-icon"></i>
-            <div class="especialidad-info">
-              <div class="especialidad-name">Cardiología</div>
-              <div class="especialidad-status">Disponible</div>
+      <div class="selectors-container">
+        <div class="especialidad-selector">
+          <label class="selector-label">Selecciona una especialidad:</label>
+          <div id="especialidadCombo" class="especialidad-cards">
+            <div class="especialidad-card" data-value="cardiologia">
+              <i class="bi bi-heart-pulse especialidad-icon"></i>
+              <div class="especialidad-info">
+                <div class="especialidad-name">Cardiología</div>
+                <div class="especialidad-status">Disponible</div>
+              </div>
+            </div>
+            <div class="especialidad-card" data-value="medico-clinico">
+              <i class="bi bi-person-vcard especialidad-icon"></i>
+              <div class="especialidad-info">
+                <div class="especialidad-name">Médico Clínico</div>
+                <div class="especialidad-status">Disponible</div>
+              </div>
+            </div>
+            <div class="especialidad-card" data-value="alergias">
+              <i class="bi bi-droplet especialidad-icon"></i>
+              <div class="especialidad-info">
+                <div class="especialidad-name">Alergias</div>
+                <div class="especialidad-status">Disponible</div>
+              </div>
+            </div>
+            <div class="especialidad-card" data-value="dermatologia">
+              <i class="bi bi-bandaid especialidad-icon"></i>
+              <div class="especialidad-info">
+                <div class="especialidad-name">Dermatología</div>
+                <div class="especialidad-status">Disponible</div>
+              </div>
             </div>
           </div>
-          <div class="especialidad-card" data-value="medico-clinico">
-            <i class="bi bi-person-vcard especialidad-icon"></i>
-            <div class="especialidad-info">
-              <div class="especialidad-name">Médico Clínico</div>
-              <div class="especialidad-status">Disponible</div>
-            </div>
-          </div>
-          <div class="especialidad-card" data-value="alergias">
-            <i class="bi bi-droplet especialidad-icon"></i>
-            <div class="especialidad-info">
-              <div class="especialidad-name">Alergias</div>
-              <div class="especialidad-status">Disponible</div>
-            </div>
-          </div>
-          <div class="especialidad-card" data-value="dermatologia">
-            <i class="bi bi-bandaid especialidad-icon"></i>
-            <div class="especialidad-info">
-              <div class="especialidad-name">Dermatología</div>
-              <div class="especialidad-status">Disponible</div>
-            </div>
-          </div>
+          <input type="hidden" id="especialidadComboValue" required>
         </div>
-        <input type="hidden" id="especialidadComboValue" required>
-      </div>
-      
-      <div class="sucursal-selector">
-        <label class="selector-label">Selecciona una sucursal:</label>
-        <div id="sucuCombo" class="sucursal-cards">
-          <div class="loading-card">
-            <i class="bi bi-arrow-clockwise spin"></i>
-            <span>Cargando sucursales...</span>
+        
+        <div class="sucursal-selector">
+          <label class="selector-label">Selecciona una sucursal:</label>
+          <div id="sucuCombo" class="sucursal-cards">
+            <div class="loading-card">
+              <i class="bi bi-arrow-clockwise spin"></i>
+              <span>Cargando sucursales...</span>
+            </div>
           </div>
+          <input type="hidden" id="sucuComboValue" required>
         </div>
-        <input type="hidden" id="sucuComboValue" required>
-      </div>
-      
-      <div class="sala-selector">
-        <label class="selector-label">Selecciona una agenda:</label>
-        <div id="salaCombo" class="sala-cards">
-          <div class="loading-card">
-            <i class="bi bi-arrow-clockwise spin"></i>
-            <span>Selecciona especialidad y sucursal para ver las agendas disponibles</span>
+        
+        <div class="sala-selector">
+          <label class="selector-label">Selecciona una agenda:</label>
+          <div id="salaCombo" class="sala-cards">
+            <div class="loading-card">
+              <i class="bi bi-arrow-clockwise spin"></i>
+              <span>Selecciona especialidad y sucursal para ver las agendas disponibles</span>
+            </div>
           </div>
+          <input type="hidden" id="salaComboValue" required>
         </div>
-        <input type="hidden" id="salaComboValue" required>
       </div>
 </div>
 
@@ -1181,7 +1406,7 @@ z-index: 9999;
     <h3 class="titulo">Reserva tu Turno</h3>
     <div id="message" class="hidden p-4 rounded-lg mb-4"></div>
 
-    <form id="reservaForm" class="space-y-4">
+    <form id="reservaForm" class="space-y-4" onsubmit="return handleSubmit(event)">
       <label>Nombre</label>
       <input type="text" name="firstName" required class="input-field" />
 
@@ -1198,7 +1423,7 @@ z-index: 9999;
       <input type="tel" name="phone" required class="input-field" />
 
       <div class="d-flex justify-content-between pt-3">
-        <button type="submit" class="boton-fecha" id="submitBtn">Reservar Turno</button>
+        <button type="button" class="boton-fecha" id="submitBtn" onclick="reservarTurnoReal()">Reservar Turno</button>
         <button type="button" class="boton-fecha" onclick="hideForm()">Cancelar</button>
       </div>
     </form>
@@ -1323,8 +1548,15 @@ document.addEventListener('click', function(event) {
       document.getElementById('reservaForm').reset();
     }
     window.showForm = showForm;
+    
+    // Alias para showFormModal (usado en el botón "Estoy en la guardia")
+    function showFormModal() {
+      showForm();
+    }
+    window.showFormModal = showFormModal;
 
 function hideForm() {
+  console.log('hideForm llamado desde:', new Error().stack);
   document.getElementById('formModal').style.display = 'none';
 }
 window.hideForm = hideForm;
@@ -1339,7 +1571,10 @@ window.hideForm = hideForm;
 
         // Función para manejar el envío del formulario
         async function handleSubmit(event) {
+            console.log('🚀 handleSubmit EJECUTÁNDOSE - previniendo submit del formulario');
             event.preventDefault();
+            
+            console.log('=== INICIO DE RESERVA DE TURNO ===');
             
             if (isLoading) return;
             
@@ -1357,8 +1592,11 @@ window.hideForm = hideForm;
                 phone: formData.get('phone')
             };
 
+            console.log('Datos del formulario:', data);
+
             try {
-                const response = await fetch('https://filavirtual2.debmedia.com/api/v1/queue/11392/branch/10588/enqueue', {
+                console.log('Enviando solicitud al API...');
+                const response = await fetch('https://filavirtual2.debmedia.com/api/v1/queue/14003/branch/10387/enqueue', {
                     method: 'POST',
                     headers: {
                         'x-api-token': 'bLb0B67zB43NwgaM2EaDrQk1PTPcbl5JB2UFV6S3',
@@ -1367,24 +1605,84 @@ window.hideForm = hideForm;
                     body: JSON.stringify(data)
                 });
 
+                console.log('Respuesta del API:', response.status, response.ok);
+                console.log('Headers de respuesta:', response.headers);
+                console.log('URL de la respuesta:', response.url);
+
                 if (response.ok) {
-                    showMessage('¡Turno reservado exitosamente!');
-                    event.target.reset();
-                    setTimeout(() => {
-                        hideForm();
-                    }, 2000);
+                    const responseData = await response.json();
+                    console.log('Datos del API recibidos:', responseData);
+                    
+                    // Verificar la estructura de la respuesta
+                    console.log('Estructura de la respuesta:', {
+                        jsonDetails: responseData.jsonDetails,
+                        hasJsonDetails: !!responseData.jsonDetails,
+                        actualTurn: responseData.jsonDetails?.actualTurn,
+                        averageWaitingTime: responseData.jsonDetails?.averageWaitingTime,
+                        queueName: responseData.jsonDetails?.queue?.name,
+                        waitingRoomName: responseData.jsonDetails?.waitingRoom?.name
+                    });
+                    
+                    // Extraer información del turno con fallbacks mejorados
+                    let turnInfo = {
+                        turno: 'N/A',
+                        tiempoEspera: 'N/A',
+                        especialidad: 'N/A',
+                        salaEspera: 'N/A'
+                    };
+                    
+                    // Intentar extraer datos de diferentes estructuras posibles
+                    if (responseData.jsonDetails) {
+                        turnInfo = {
+                            turno: responseData.jsonDetails.actualTurn || responseData.jsonDetails.turn || 'N/A',
+                            tiempoEspera: responseData.jsonDetails.averageWaitingTime || responseData.jsonDetails.serviceTime || 'N/A',
+                            especialidad: responseData.jsonDetails.queue?.name || 'N/A',
+                            salaEspera: responseData.jsonDetails.waitingRoom?.name || 'N/A'
+                        };
+                    } else if (responseData.code) {
+                        // Si no hay jsonDetails, usar datos del nivel principal
+                        turnInfo = {
+                            turno: responseData.code || 'N/A',
+                            tiempoEspera: responseData.jsonDetails?.serviceTime || 'N/A',
+                            especialidad: 'Atención General',
+                            salaEspera: 'Sala Principal'
+                        };
+                    }
+                    
+                    console.log('Información del turno extraída:', turnInfo);
+                    
+                    // IMPORTANTE: Mostrar información del turno ANTES de cualquier otra cosa
+                    console.log('Llamando a showTurnInfoInModal con:', turnInfo);
+                    showTurnInfoInModal(turnInfo);
+                    
+                    console.log('Información del turno mostrada en el modal');
+                    
+                    // Verificación adicional de que el turno se generó
+                    if (turnInfo.turno !== 'N/A') {
+                        console.log('✅ TURNO GENERADO EXITOSAMENTE:', turnInfo.turno);
+                    } else {
+                        console.log('⚠️ ADVERTENCIA: No se pudo extraer el número de turno');
+                    }
+                    
                 } else {
-                    throw new Error('Error en la respuesta del servidor');
+                    throw new Error('Error en la respuesta del servidor: ' + response.status);
                 }
             } catch (error) {
-                console.error('Error:', error);
-                showMessage('Error al reservar el turno. Por favor, inténtalo de nuevo.', true);
+                console.error('Error durante la reserva:', error);
+                showErrorInModal('Error al reservar el turno: ' + error.message);
             } finally {
                 isLoading = false;
                 submitBtn.textContent = 'Reservar Turno';
                 submitBtn.disabled = false;
+                console.log('=== FIN DE RESERVA DE TURNO ===');
             }
+            
+            // IMPORTANTE: Prevenir que el formulario se envíe
+            return false;
         }
+        
+        // Hacer la función handleSubmit disponible globalmente
+        window.handleSubmit = handleSubmit;
 
         // Función para el botón "Estoy aquí"
         async function handleEstoyAqui() {
@@ -1412,6 +1710,19 @@ window.hideForm = hideForm;
                 });
 
                 if (response.ok) {
+                    const responseData = await response.json();
+                    
+                    // Extraer información del turno
+                    const turnInfo = {
+                        turno: responseData.jsonDetails?.actualTurn || 'N/A',
+                        tiempoEspera: responseData.jsonDetails?.averageWaitingTime || 'N/A',
+                        especialidad: responseData.jsonDetails?.queue?.name || 'N/A',
+                        salaEspera: responseData.jsonDetails?.waitingRoom?.name || 'N/A'
+                    };
+                    
+                    // Mostrar información del turno en modal flotante
+                    showTurnInfo(turnInfo);
+                    
                     alert('¡Notificación enviada exitosamente!');
                 } else {
                     throw new Error('Error en la respuesta del servidor');
@@ -1453,18 +1764,31 @@ window.hideForm = hideForm;
                 });
 
                 if (response.ok) {
+                    const responseData = await response.json();
+                    
+                    // Extraer información del turno
+                    const turnInfo = {
+                        turno: responseData.jsonDetails?.actualTurn || 'N/A',
+                        tiempoEspera: responseData.jsonDetails?.averageWaitingTime || 'N/A',
+                        especialidad: responseData.jsonDetails?.queue?.name || 'N/A',
+                        salaEspera: responseData.jsonDetails?.waitingRoom?.name || 'N/A'
+                    };
+                    
+                    // Mostrar información del turno en modal flotante
+                    showTurnInfo(turnInfo);
+                    
                     // Mostrar mensaje de éxito con estilo
                     showSuccessMessage('¡Perfecto! Ya estás registrado en la cola. Te atenderemos pronto.');
                     btn.innerHTML = '<i data-lucide="check" class="w-6 h-6 mr-3"></i>¡Enviado!';
-                                         btn.classList.remove('bg-primary-500', 'hover:bg-primary-600');
-                     btn.classList.add('bg-green-600', 'hover:bg-green-700');
+                    btn.classList.remove('bg-primary-500', 'hover:bg-primary-600');
+                    btn.classList.add('bg-green-600', 'hover:bg-green-700');
                      
-                     // Resetear después de 3 segundos
-                     setTimeout(() => {
-                         btn.innerHTML = originalContent;
-                         btn.classList.remove('bg-green-600', 'hover:bg-green-700');
-                         btn.classList.add('bg-primary-500', 'hover:bg-primary-600');
-                     }, 3000);
+                    // Resetear después de 3 segundos
+                    setTimeout(() => {
+                        btn.innerHTML = originalContent;
+                        btn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                        btn.classList.add('bg-primary-500', 'hover:bg-primary-600');
+                    }, 3000);
                 } else {
                     throw new Error('Error en la respuesta del servidor');
                 }
@@ -1516,6 +1840,322 @@ window.hideForm = hideForm;
              }, 5000);
          }
 
+                  // Función para mostrar errores dentro del modal
+         function showErrorInModal(errorMessage) {
+             console.log('=== MOSTRANDO ERROR EN MODAL ===');
+             console.log('Mensaje de error:', errorMessage);
+             
+             try {
+                 const form = document.getElementById('reservaForm');
+                 
+                 if (!form) {
+                     console.error('ERROR: No se encontró el formulario para mostrar error');
+                     return;
+                 }
+                 
+                 const errorHTML = `
+                     <div class="error-container">
+                         <div class="error-icon">
+                             <i class="bi bi-exclamation-triangle-fill" style="font-size: 3rem; color: #dc3545;"></i>
+                         </div>
+                         <h4 class="text-lg font-semibold text-center mb-4" style="color: #dc3545;">Error en la Reserva</h4>
+                         <p class="error-message text-center mb-4">${errorMessage}</p>
+                         <div class="text-center">
+                             <button class="boton-fecha" onclick="resetFormInModal()">Intentar de Nuevo</button>
+                             <button class="boton-fecha" onclick="hideForm()" style="margin-left: 10px; background-color: #6c757d;">Cerrar</button>
+                         </div>
+                     </div>
+                 `;
+                 
+                 form.innerHTML = errorHTML;
+                 console.log('Error mostrado en modal exitosamente');
+                 
+             } catch (error) {
+                 console.error('ERROR en showErrorInModal:', error);
+             }
+         }
+         
+         // Función para resetear el formulario en el modal
+         function resetFormInModal() {
+             const form = document.getElementById('reservaForm');
+             
+             const formHTML = `
+                 <label>Nombre</label>
+                 <input type="text" name="firstName" required class="input-field" />
+
+                 <label>Apellido</label>
+                 <input type="text" name="lastName" required class="input-field" />
+
+                 <label>DNI</label>
+                 <input type="text" name="dni" required class="input-field" />
+
+                 <label>Email</label>
+                 <input type="email" name="email" required class="input-field" />
+
+                 <label>Teléfono</label>
+                 <input type="tel" name="phone" required class="input-field" />
+
+                 <div class="d-flex justify-content-between pt-3">
+                     <button type="submit" class="boton-fecha" id="submitBtn">Reservar Turno</button>
+                     <button type="button" class="boton-fecha" onclick="hideForm()">Cancelar</button>
+                 </div>
+             `;
+             
+             form.innerHTML = formHTML;
+             
+             // Reasignar el event listener
+             form.addEventListener('submit', handleSubmit);
+         }
+         
+         // Función para mostrar información del turno dentro del modal
+         function showTurnInfoInModal(turnInfo) {
+             console.log('=== MOSTRANDO INFORMACIÓN DEL TURNO ===');
+             console.log('Datos recibidos:', turnInfo);
+             
+             try {
+                 // Obtener elementos del DOM
+                 const form = document.getElementById('reservaForm');
+                 const message = document.getElementById('message');
+                 
+                 console.log('Formulario encontrado:', form);
+                 console.log('Mensaje encontrado:', message);
+                 
+                 if (!form) {
+                     console.error('ERROR: No se encontró el formulario');
+                     return;
+                 }
+                 
+
+                 
+                 // Log adicional para verificar los datos que se van a mostrar
+                 console.log('Datos que se van a mostrar en el modal:', {
+                     turno: turnInfo.turno,
+                     tiempoEspera: turnInfo.tiempoEspera,
+                     especialidad: turnInfo.especialidad,
+                     salaEspera: turnInfo.salaEspera
+                 });
+                 
+                 // Crear el HTML para mostrar la información del turno
+                 const turnInfoHTML = `
+                     <div class="turn-info-container">
+                         <h4 class="text-lg font-semibold text-center mb-4" style="color: #863DFF;">✅ Turno Reservado Exitosamente</h4>
+                         <p class="text-center mb-4" style="color: #28a745; font-weight: 600;">¡Tu turno ha sido generado en el sistema!</p>
+                         <div class="turn-info-grid">
+                             <div class="turn-info-item">
+                                 <div class="turn-info-label">Número de Turno:</div>
+                                 <div class="turn-info-value">${turnInfo.turno}</div>
+                             </div>
+                             <div class="turn-info-item">
+                                 <div class="turn-info-label">Tiempo Promedio de Espera:</div>
+                                 <div class="turn-info-value">${turnInfo.tiempoEspera} min</div>
+                             </div>
+                             <div class="turn-info-item">
+                                 <div class="turn-info-label">Especialidad:</div>
+                                 <div class="turn-info-value">${turnInfo.especialidad}</div>
+                             </div>
+                             <div class="turn-info-item">
+                                 <div class="turn-info-label">Sala de Espera:</div>
+                                 <div class="turn-info-value">${turnInfo.salaEspera}</div>
+                             </div>
+                         </div>
+                         <div class="text-center mt-4">
+                             <button class="boton-fecha" onclick="hideForm()">Cerrar</button>
+                         </div>
+                     </div>
+                 `;
+                 
+                 console.log('HTML generado, reemplazando contenido...');
+                 
+                 // Reemplazar el contenido del formulario
+                 form.innerHTML = turnInfoHTML;
+                 
+                 console.log('Contenido reemplazado exitosamente');
+                 
+                 // Ocultar el mensaje si existe
+                 if (message) {
+                     message.style.display = 'none';
+                     console.log('Mensaje oculto');
+                 }
+                 
+                 console.log('=== INFORMACIÓN DEL TURNO MOSTRADA EXITOSAMENTE ===');
+                 
+             } catch (error) {
+                 console.error('ERROR en showTurnInfoInModal:', error);
+             }
+         }
+         
+
+         
+
+         
+         // Función para reservar turno real invocando el API
+         async function reservarTurnoReal() {
+             console.log('=== RESERVANDO TURNO REAL ===');
+             
+             // Obtener los datos del formulario
+             const form = document.getElementById('reservaForm');
+             const firstName = form.querySelector('input[name="firstName"]').value;
+             const lastName = form.querySelector('input[name="lastName"]').value;
+             const dni = form.querySelector('input[name="dni"]').value;
+             const email = form.querySelector('input[name="email"]').value;
+             const phone = form.querySelector('input[name="phone"]').value;
+             
+             // Validar que todos los campos estén completos
+             if (!firstName || !lastName || !dni || !email || !phone) {
+                 alert('Por favor, completa todos los campos del formulario');
+                 return;
+             }
+             
+             console.log('Datos del formulario:', { firstName, lastName, dni, email, phone });
+             
+             // Cambiar el botón a estado de carga
+             const submitBtn = document.getElementById('submitBtn');
+             const originalText = submitBtn.textContent;
+             submitBtn.textContent = 'Reservando...';
+             submitBtn.disabled = true;
+             
+             try {
+                 console.log('Invocando API para reservar turno...');
+                 const response = await fetch('https://filavirtual2.debmedia.com/api/v1/queue/14003/branch/10387/enqueue', {
+                     method: 'POST',
+                     headers: {
+                         'x-api-token': 'bLb0B67zB43NwgaM2EaDrQk1PTPcbl5JB2UFV6S3',
+                         'Content-Type': 'application/json'
+                     },
+                     body: JSON.stringify({
+                         firstName,
+                         lastName,
+                         dni,
+                         email,
+                         phone
+                     })
+                 });
+                 
+                 console.log('Respuesta del API:', response.status, response.ok);
+                 
+                 if (response.ok) {
+                     const responseData = await response.json();
+                     console.log('Datos del API recibidos:', responseData);
+                     
+                     // Log detallado de la estructura de la respuesta
+                     console.log('Estructura de la respuesta:', {
+                         hasJsonDetails: !!responseData.jsonDetails,
+                         jsonDetailsKeys: responseData.jsonDetails ? Object.keys(responseData.jsonDetails) : 'No existe',
+                         actualTurn: responseData.jsonDetails?.actualTurn,
+                         turn: responseData.jsonDetails?.turn,
+                         averageWaitingTime: responseData.jsonDetails?.averageWaitingTime,
+                         serviceTime: responseData.jsonDetails?.serviceTime,
+                         queueName: responseData.jsonDetails?.queue?.name,
+                         waitingRoomName: responseData.jsonDetails?.waitingRoom?.name,
+                         code: responseData.code
+                     });
+                     
+                     // Log específico para el turno
+                     console.log('🔍 VALORES DEL TURNO:', {
+                         'responseData.jsonDetails.turn': responseData.jsonDetails?.turn,
+                         'responseData.jsonDetails.actualTurn': responseData.jsonDetails?.actualTurn,
+                         'responseData.code': responseData.code
+                     });
+                     
+                     // Extraer información del turno con fallbacks mejorados
+                     let turnInfo = {
+                         turno: 'N/A',
+                         tiempoEspera: 'N/A',
+                         especialidad: 'N/A',
+                         salaEspera: 'N/A'
+                     };
+                     
+                     // Intentar extraer datos de diferentes estructuras posibles
+                     if (responseData.jsonDetails) {
+                         turnInfo = {
+                             turno: responseData.jsonDetails.turn || responseData.jsonDetails.actualTurn || 'N/A',
+                             tiempoEspera: responseData.jsonDetails.serviceTime || responseData.jsonDetails.averageWaitingTime || 'N/A',
+                             especialidad: responseData.jsonDetails.queue?.name || 'N/A',
+                             salaEspera: responseData.jsonDetails.waitingRoom?.name || 'N/A'
+                         };
+                     } else if (responseData.code) {
+                         // Si no hay jsonDetails, usar datos del nivel principal
+                         turnInfo = {
+                             turno: responseData.code || 'N/A',
+                             tiempoEspera: responseData.jsonDetails?.serviceTime || 'N/A',
+                             especialidad: 'Atención General',
+                             salaEspera: 'Sala Principal'
+                         };
+                     }
+                     
+                     // Redondear el tiempo de espera para mostrar solo la parte entera
+                     if (turnInfo.tiempoEspera !== 'N/A' && !isNaN(turnInfo.tiempoEspera)) {
+                         const tiempoOriginal = turnInfo.tiempoEspera;
+                         turnInfo.tiempoEspera = Math.floor(parseFloat(turnInfo.tiempoEspera));
+                         console.log(`Tiempo de espera redondeado: ${tiempoOriginal} → ${turnInfo.tiempoEspera}`);
+                     }
+                     
+                     console.log('Información del turno extraída:', turnInfo);
+                     
+                     // Log específico para verificar el valor del turno
+                     console.log('🎯 VALOR FINAL DEL TURNO:', {
+                         'turnInfo.turno': turnInfo.turno,
+                         'tipo': typeof turnInfo.turno,
+                         'longitud': turnInfo.turno ? turnInfo.turno.length : 'N/A'
+                     });
+                     
+                     // Mostrar la información del turno en el modal
+                     showTurnInfoInModal(turnInfo);
+                     
+                     console.log('✅ TURNO RESERVADO EXITOSAMENTE:', turnInfo.turno);
+                     
+                 } else {
+                     throw new Error('Error en la respuesta del servidor: ' + response.status);
+                 }
+                 
+             } catch (error) {
+                 console.error('Error durante la reserva del turno:', error);
+                 
+                 // Mostrar error en el modal
+                 showErrorInModal('Error al reservar el turno: ' + error.message);
+                 
+             } finally {
+                 // Restaurar el botón
+                 submitBtn.textContent = originalText;
+                 submitBtn.disabled = false;
+                 console.log('=== FIN DE RESERVA DE TURNO ===');
+             }
+         }
+         
+         // Hacer la función reservarTurnoReal disponible globalmente
+         window.reservarTurnoReal = reservarTurnoReal;
+         
+         // Función para mostrar información del turno (modal flotante)
+         function showTurnInfo(turnInfo) {
+             const turnInfoDiv = document.createElement('div');
+             turnInfoDiv.className = 'fixed top-4 left-4 bg-white px-6 py-4 rounded-lg shadow-lg z-50 transform transition-all duration-300 max-w-md turn-info-display';
+             turnInfoDiv.innerHTML = `
+                 <div class="flex items-center justify-between mb-3">
+                     <h4 class="text-lg font-semibold">Información del Turno</h4>
+                     <button onclick="this.parentElement.parentElement.remove()" class="text-gray-500 hover:text-gray-700 text-xl font-bold">&times;</button>
+                 </div>
+                 <div class="space-y-3">
+                     <div class="info-row">
+                         <span class="info-label">Número de Turno:</span>
+                         <span class="info-value">${turnInfo.turno}</span>
+                     </div>
+                     <div class="info-row">
+                         <span class="info-label">Tiempo Promedio de Espera:</span>
+                         <span class="info-value">${turnInfo.tiempoEspera} min</span>
+                     </div>
+                     <div class="info-row">
+                         <span class="info-label">Especialidad:</span>
+                         <span class="info-value">${turnInfo.especialidad}</span>
+                     </div>
+                     <div class="info-row">
+                         <span class="info-label">Sala de Espera:</span>
+                         <span class="info-value">${turnInfo.salaEspera}</span>
+                     </div>
+                 </div>
+             `;
+             document.body.appendChild(turnInfoDiv);
+         }
+         
          // Función para abrir popup de Medicina al Viajero
          function openViajeroPopup() {
              const url = 'https://filavirtual2.debmedia.com/app/buscar/ventasalud?queueName=Atención con especialista - Videollamada&branchId=10387';
@@ -1533,10 +2173,16 @@ window.hideForm = hideForm;
         // Event listeners
         document.getElementById('reservaForm').addEventListener('submit', handleSubmit);
 
-        // Cerrar modal al hacer clic fuera de él
+        // Cerrar modal al hacer clic fuera de él (solo cuando esté habilitado)
         document.getElementById('formModal').addEventListener('click', function(e) {
-            if (e.target === this) {
+            console.log('Modal clickeado, target:', e.target, 'this:', this);
+            console.log('pointerEvents del modal:', this.style.pointerEvents);
+            
+            if (e.target === this && this.style.pointerEvents !== 'none') {
+                console.log('Cerrando modal por clic fuera');
                 hideForm();
+            } else {
+                console.log('Modal no se puede cerrar - pointerEvents bloqueado');
             }
         });
 
@@ -1616,7 +2262,7 @@ window.duracionSeleccionadaGlobal = null;
           <input type="text" id="nombre" required>
           <label>Apellido:</label>
           <input type="text" id="apellido" required>
-          <label>RUT:</label>
+          <label>DNI:</label>
           <input type="text" id="dni" required>
           <label>Email:</label>
           <input type="email" id="email" required>
