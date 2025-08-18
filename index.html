@@ -1546,6 +1546,12 @@ document.addEventListener('click', function(event) {
       document.getElementById('formModal').style.display = 'block';
       document.getElementById('message').classList.add('hidden');
       document.getElementById('reservaForm').reset();
+      
+      // Restaurar la visibilidad del formulario
+      const form = document.getElementById('reservaForm');
+      if (form) {
+          form.style.display = 'block';
+      }
     }
     window.showForm = showForm;
     
@@ -1628,28 +1634,30 @@ window.hideForm = hideForm;
                         turno: 'N/A',
                         tiempoEspera: 'N/A',
                         especialidad: 'N/A',
-                        salaEspera: 'N/A'
+                        salaEspera: 'N/A',
+                        codigo: responseData.code || 'N/A' // Agregar el código del turno
                     };
                     
                     // Intentar extraer datos de diferentes estructuras posibles
                     if (responseData.jsonDetails) {
-                        turnInfo = {
-                            turno: responseData.jsonDetails.actualTurn || responseData.jsonDetails.turn || 'N/A',
-                            tiempoEspera: responseData.jsonDetails.averageWaitingTime || responseData.jsonDetails.serviceTime || 'N/A',
-                            especialidad: responseData.jsonDetails.queue?.name || 'N/A',
-                            salaEspera: responseData.jsonDetails.waitingRoom?.name || 'N/A'
-                        };
+                        turnInfo.turno = responseData.jsonDetails.actualTurn || responseData.jsonDetails.turn || 'N/A';
+                        turnInfo.tiempoEspera = responseData.jsonDetails.averageWaitingTime || responseData.jsonDetails.serviceTime || 'N/A';
+                        turnInfo.especialidad = responseData.jsonDetails.queue?.name || 'N/A';
+                        turnInfo.salaEspera = responseData.jsonDetails.waitingRoom?.name || 'N/A';
                     } else if (responseData.code) {
                         // Si no hay jsonDetails, usar datos del nivel principal
-                        turnInfo = {
-                            turno: responseData.code || 'N/A',
-                            tiempoEspera: responseData.jsonDetails?.serviceTime || 'N/A',
-                            especialidad: 'Atención General',
-                            salaEspera: 'Sala Principal'
-                        };
+                        turnInfo.turno = responseData.code || 'N/A';
+                        turnInfo.tiempoEspera = responseData.jsonDetails?.serviceTime || 'N/A';
+                        turnInfo.especialidad = 'Atención General';
+                        turnInfo.salaEspera = 'Sala Principal';
                     }
                     
                     console.log('Información del turno extraída:', turnInfo);
+                    
+                    // Guardar el código del turno en localStorage
+                    if (responseData.code) {
+                        localStorage.setItem('turnCode', responseData.code);
+                    }
                     
                     // IMPORTANTE: Mostrar información del turno ANTES de cualquier otra cosa
                     console.log('Llamando a showTurnInfoInModal con:', turnInfo);
@@ -1909,41 +1917,40 @@ window.hideForm = hideForm;
          
          // Función para mostrar información del turno dentro del modal
          function showTurnInfoInModal(turnInfo) {
-             console.log('=== MOSTRANDO INFORMACIÓN DEL TURNO ===');
-             console.log('Datos recibidos:', turnInfo);
-             
              try {
                  // Obtener elementos del DOM
                  const form = document.getElementById('reservaForm');
                  const message = document.getElementById('message');
-                 
-                 console.log('Formulario encontrado:', form);
-                 console.log('Mensaje encontrado:', message);
                  
                  if (!form) {
                      console.error('ERROR: No se encontró el formulario');
                      return;
                  }
                  
-
+                 // Obtener el código del turno desde turnInfo
+                 const turnCode = turnInfo.codigo;
                  
-                 // Log adicional para verificar los datos que se van a mostrar
-                 console.log('Datos que se van a mostrar en el modal:', {
-                     turno: turnInfo.turno,
-                     tiempoEspera: turnInfo.tiempoEspera,
-                     especialidad: turnInfo.especialidad,
-                     salaEspera: turnInfo.salaEspera
-                 });
-                 
-                 // Crear el HTML para mostrar la información del turno
+                 // Crear el HTML para mostrar la información del turno con actualizaciones en tiempo real
                  const turnInfoHTML = `
                      <div class="turn-info-container">
                          <h4 class="text-lg font-semibold text-center mb-4" style="color: #863DFF;">✅ Turno Reservado Exitosamente</h4>
                          <p class="text-center mb-4" style="color: #28a745; font-weight: 600;">¡Tu turno ha sido generado en el sistema!</p>
                          <div class="turn-info-grid">
                              <div class="turn-info-item">
+                                 <div class="turn-info-label">Código del Turno:</div>
+                                 <div class="turn-info-value" id="turnCodeDisplay">${turnCode || 'No disponible'}</div>
+                             </div>
+                             <div class="turn-info-item">
                                  <div class="turn-info-label">Número de Turno:</div>
                                  <div class="turn-info-value">${turnInfo.turno}</div>
+                             </div>
+                             <div class="turn-info-item">
+                                 <div class="turn-info-label">Estado del Turno:</div>
+                                 <div class="turn-info-value" id="turnStatus">Consultando...</div>
+                             </div>
+                             <div class="turn-info-item">
+                                 <div class="turn-info-label">Tiempo de Espera Actual:</div>
+                                 <div class="turn-info-value" id="currentWaitingTime">Consultando...</div>
                              </div>
                              <div class="turn-info-item">
                                  <div class="turn-info-label">Tiempo Promedio de Espera:</div>
@@ -1964,23 +1971,36 @@ window.hideForm = hideForm;
                      </div>
                  `;
                  
-                 console.log('HTML generado, reemplazando contenido...');
+                 // Ocultar el formulario y mostrar la información del turno
+                 form.style.display = 'none';
+                 message.innerHTML = turnInfoHTML;
+                 message.classList.remove('hidden');
                  
-                 // Reemplazar el contenido del formulario
-                 form.innerHTML = turnInfoHTML;
-                 
-                 console.log('Contenido reemplazado exitosamente');
-                 
-                 // Ocultar el mensaje si existe
-                 if (message) {
-                     message.style.display = 'none';
-                     console.log('Mensaje oculto');
+                 // Iniciar el polling del estado del turno
+                 if (turnCode && turnCode !== 'N/A' && turnCode !== 'No disponible') {
+                     startTurnStatusPolling(turnCode);
                  }
                  
-                 console.log('=== INFORMACIÓN DEL TURNO MOSTRADA EXITOSAMENTE ===');
-                 
              } catch (error) {
-                 console.error('ERROR en showTurnInfoInModal:', error);
+                 console.error('Error en showTurnInfoInModal:', error);
+                 
+                 // Mostrar mensaje de error genérico
+                 const form = document.getElementById('reservaForm');
+                 const message = document.getElementById('message');
+                 
+                 if (form && message) {
+                     form.style.display = 'none';
+                     message.innerHTML = `
+                         <div class="error-container">
+                             <h4 class="text-lg font-semibold text-center mb-4" style="color: #dc3545;">❌ Error al mostrar información del turno</h4>
+                             <p class="text-center mb-4">Hubo un problema al procesar la información del turno.</p>
+                             <div class="text-center">
+                                 <button class="boton-fecha" onclick="showForm()">Volver</button>
+                             </div>
+                         </div>
+                     `;
+                     message.classList.remove('hidden');
+                 }
              }
          }
          
@@ -2062,25 +2082,22 @@ window.hideForm = hideForm;
                          turno: 'N/A',
                          tiempoEspera: 'N/A',
                          especialidad: 'N/A',
-                         salaEspera: 'N/A'
+                         salaEspera: 'N/A',
+                         codigo: responseData.code || 'N/A' // Agregar el código del turno
                      };
                      
                      // Intentar extraer datos de diferentes estructuras posibles
                      if (responseData.jsonDetails) {
-                         turnInfo = {
-                             turno: responseData.jsonDetails.turn || responseData.jsonDetails.actualTurn || 'N/A',
-                             tiempoEspera: responseData.jsonDetails.serviceTime || responseData.jsonDetails.averageWaitingTime || 'N/A',
-                             especialidad: responseData.jsonDetails.queue?.name || 'N/A',
-                             salaEspera: responseData.jsonDetails.waitingRoom?.name || 'N/A'
-                         };
+                         turnInfo.turno = responseData.jsonDetails.turn || responseData.jsonDetails.actualTurn || 'N/A';
+                         turnInfo.tiempoEspera = responseData.jsonDetails.serviceTime || responseData.jsonDetails.averageWaitingTime || 'N/A';
+                         turnInfo.especialidad = responseData.jsonDetails.queue?.name || 'N/A';
+                         turnInfo.salaEspera = responseData.jsonDetails.waitingRoom?.name || 'N/A';
                      } else if (responseData.code) {
                          // Si no hay jsonDetails, usar datos del nivel principal
-                         turnInfo = {
-                             turno: responseData.code || 'N/A',
-                             tiempoEspera: responseData.jsonDetails?.serviceTime || 'N/A',
-                             especialidad: 'Atención General',
-                             salaEspera: 'Sala Principal'
-                         };
+                         turnInfo.turno = responseData.code || 'N/A';
+                         turnInfo.tiempoEspera = responseData.jsonDetails?.serviceTime || 'N/A';
+                         turnInfo.especialidad = 'Atención General';
+                         turnInfo.salaEspera = 'Sala Principal';
                      }
                      
                      // Redondear el tiempo de espera para mostrar solo la parte entera
@@ -2098,6 +2115,11 @@ window.hideForm = hideForm;
                          'tipo': typeof turnInfo.turno,
                          'longitud': turnInfo.turno ? turnInfo.turno.length : 'N/A'
                      });
+                     
+                     // Guardar el código del turno en localStorage
+                     if (responseData.code) {
+                         localStorage.setItem('turnCode', responseData.code);
+                     }
                      
                      // Mostrar la información del turno en el modal
                      showTurnInfoInModal(turnInfo);
@@ -2122,8 +2144,126 @@ window.hideForm = hideForm;
              }
          }
          
-         // Hacer la función reservarTurnoReal disponible globalmente
+         // Hacer las funciones disponibles globalmente
          window.reservarTurnoReal = reservarTurnoReal;
+         window.startTurnStatusPolling = startTurnStatusPolling;
+         window.stopTurnStatusPolling = stopTurnStatusPolling;
+         
+         // Función para consultar recurrentemente el estado del turno
+         function startTurnStatusPolling(turnCode) {
+             // Verificar que se recibió el código del turno
+             if (!turnCode || turnCode === 'N/A' || turnCode === 'No disponible') {
+                 console.error('No se recibió código de turno válido para consultar:', turnCode);
+                 return;
+             }
+             
+             // Inicializar contador de consultas
+             let callCount = 0;
+             
+             // Función para realizar la consulta a la API
+             async function consultarEstadoTurno() {
+                 try {
+                     // Incrementar contador de consultas (solo para logging interno)
+                     callCount++;
+                     
+                     // Consultar la API del estado del turno
+                     const response = await fetch(`https://filavirtual2.debmedia.com/api/v1/turn/code/${turnCode}`, {
+                         method: 'GET',
+                         headers: {
+                             'x-api-token': 'iyAUHKKJ2NTsxf4sAH1OWm3fljRsThvxF0kbCGWe',
+                             'Content-Type': 'text/plain'
+                         }
+                     });
+                     
+                     if (response.ok) {
+                         const data = await response.json();
+                         
+                         // Actualizar estado del turno
+                         const statusElement = document.getElementById('turnStatus');
+                         if (statusElement) {
+                             let statusText = data.status || 'Desconocido';
+                             
+                             // Traducir estados específicos
+                             if (data.status === 'ANNOUNCED') {
+                                 statusText = 'Lo estamos llamando';
+                             } else if (data.status === 'WAITING_TO_BE_CALLED') {
+                                 statusText = 'En breve lo llamaremos';
+                             } else if (data.status === 'FINALIZED') {
+                                 statusText = 'Atención finalizada';
+                             }
+                             
+                             statusElement.textContent = statusText;
+                             statusElement.style.color = getStatusColor(data.status);
+                         }
+                         
+                         // Actualizar tiempo de espera actual
+                         const waitingTimeElement = document.getElementById('currentWaitingTime');
+                         if (waitingTimeElement) {
+                             waitingTimeElement.textContent = data.averageWaitingTime ? `${data.averageWaitingTime} min` : 'N/A';
+                         }
+                         
+                     } else {
+                         // Mostrar error en los elementos
+                         const statusElement = document.getElementById('turnStatus');
+                         const waitingTimeElement = document.getElementById('currentWaitingTime');
+                         
+                         if (statusElement) {
+                             statusElement.textContent = 'Error al consultar';
+                             statusElement.style.color = '#dc3545';
+                         }
+                         
+                         if (waitingTimeElement) {
+                             waitingTimeElement.textContent = 'Error al consultar';
+                             waitingTimeElement.style.color = '#dc3545';
+                         }
+                     }
+                     
+                 } catch (error) {
+                     console.error(`Error en consulta de estado del turno (consulta #${callCount}):`, error);
+                     
+                     // Mostrar error en los elementos
+                     const statusElement = document.getElementById('turnStatus');
+                     const waitingTimeElement = document.getElementById('currentWaitingTime');
+                     
+                     if (statusElement) {
+                         statusElement.textContent = 'Error de conexión';
+                         statusElement.style.color = '#dc3545';
+                     }
+                     
+                     if (waitingTimeElement) {
+                         waitingTimeElement.textContent = 'Error de conexión';
+                         waitingTimeElement.style.color = '#dc3545';
+                     }
+                 }
+             }
+             
+             // Función para obtener color según el estado
+             function getStatusColor(status) {
+                 const statusLower = status.toLowerCase();
+                 if (statusLower.includes('espera') || statusLower.includes('waiting')) return '#ffc107';
+                 if (statusLower.includes('atendiendo') || statusLower.includes('attending')) return '#28a745';
+                 if (statusLower.includes('completado') || statusLower.includes('completed')) return '#17a2b8';
+                 if (statusLower.includes('cancelado') || statusLower.includes('cancelled')) return '#dc3545';
+                 return '#6c757d';
+             }
+             
+             // Realizar la primera consulta inmediatamente
+             consultarEstadoTurno();
+             
+             // Configurar consultas recurrentes cada 5 segundos
+             const pollingInterval = setInterval(consultarEstadoTurno, 5000);
+             
+             // Guardar el intervalo para poder detenerlo si es necesario
+             window.turnStatusPollingInterval = pollingInterval;
+         }
+         
+         // Función para detener las consultas recurrentes (opcional)
+         function stopTurnStatusPolling() {
+             if (window.turnStatusPollingInterval) {
+                 clearInterval(window.turnStatusPollingInterval);
+                 window.turnStatusPollingInterval = null;
+             }
+         }
          
          // Función para mostrar información del turno (modal flotante)
          function showTurnInfo(turnInfo) {
