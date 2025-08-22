@@ -514,12 +514,12 @@ z-index: 9999;
     }
     .modal-content {
       background-color: #fff;
-      margin: 5% auto;
-      padding: 25px;
+      margin: 3% auto;
+      padding: 30px;
       border-radius: 16px;
       width: 90%;
-      max-width: 480px;
-      max-height: 85vh;
+      max-width: 600px;
+      max-height: 90vh;
       overflow-y: auto;
       position: relative;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
@@ -528,9 +528,10 @@ z-index: 9999;
     
     /* Modal de agendas más ancho */
     #popupModal .modal-content {
-      max-width: 1200px;
+      max-width: 1400px;
       width: 95%;
-      padding: 30px;
+      padding: 35px;
+      max-height: 92vh;
     }
     .close {
       position: absolute;
@@ -558,18 +559,18 @@ z-index: 9999;
     /* Responsive adjustments for modal */
     @media (max-height: 600px) {
       .modal-content {
-        margin: 2% auto;
-        padding: 20px;
-        max-height: 96vh;
+        margin: 1% auto;
+        padding: 25px;
+        max-height: 98vh;
       }
     }
     
     @media (max-width: 768px) {
       .modal-content {
         width: 95%;
-        margin: 3% auto;
-        padding: 20px;
-        max-width: 420px;
+        margin: 2% auto;
+        padding: 25px;
+        max-width: 500px;
       }
       
       #formModal .titulo {
@@ -618,7 +619,7 @@ z-index: 9999;
              @apply w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200;
          }
          
-         /* Estilos específicos para el popup */
+         /* Estilos específicos para el popup - Diseño moderno tipo "Apertura de cuenta nómina" */
          #formModal .input-field {
              @apply w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200;
              font-size: 0.9rem;
@@ -630,18 +631,37 @@ z-index: 9999;
              @apply bg-primary-500 hover:bg-primary-600 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200;
          }
          
+         /* Layout de formulario en dos columnas */
+         #formModal .form-row {
+             display: flex;
+             gap: 1rem;
+             margin-bottom: 1.5rem;
+         }
+         
+         #formModal .form-col {
+             flex: 1;
+             min-width: 0;
+         }
+         
+         #formModal .form-col-full {
+             width: 100%;
+             margin-bottom: 1.5rem;
+         }
+         
          /* Asegurar que los campos del popup tengan bordes visibles */
          #formModal input[type="text"],
          #formModal input[type="email"],
          #formModal input[type="tel"] {
-             border: 1px solid #d1d5db !important;
-             border-radius: 0.75rem !important;
-             padding: 0.625rem 0.875rem !important;
+             border: 1px solid #e5e7eb !important;
+             border-radius: 0.5rem !important;
+             padding: 0.75rem 1rem !important;
              width: 100% !important;
              max-width: 100% !important;
-             font-size: 0.9rem !important;
+             font-size: 0.95rem !important;
              transition: all 0.2s ease !important;
-             background-color: #fafafa !important;
+             background-color: #ffffff !important;
+             color: #374151 !important;
+             font-family: 'Hanken Grotesk', system-ui, sans-serif !important;
          }
          
          #formModal input[type="text"]:focus,
@@ -659,12 +679,17 @@ z-index: 9999;
              background-color: #863DFF !important;
              color: white !important;
              font-weight: 600 !important;
-             padding: 0.75rem 1.25rem !important;
-             border-radius: 0.75rem !important;
+             padding: 0.875rem 1.5rem !important;
+             border-radius: 0.5rem !important;
              transition: all 0.2s ease !important;
              font-size: 0.9rem !important;
-             text-transform: uppercase !important;
-             letter-spacing: 0.5px !important;
+             text-transform: none !important;
+             letter-spacing: 0.025em !important;
+             border: none !important;
+             display: inline-flex !important;
+             align-items: center !important;
+             gap: 0.5rem !important;
+             font-family: 'Hanken Grotesk', system-ui, sans-serif !important;
          }
          
          #formModal .btn-primary:hover {
@@ -672,6 +697,31 @@ z-index: 9999;
              transform: translateY(-2px) !important;
              box-shadow: 0 8px 25px rgba(134, 61, 255, 0.3) !important;
          }
+         
+         /* Botón secundario - Estilo moderno */
+         #formModal .btn-secondary {
+             background-color: #ffffff !important;
+             color: #374151 !important;
+             font-weight: 500 !important;
+             padding: 0.875rem 1.5rem !important;
+             border-radius: 0.5rem !important;
+             transition: all 0.2s ease !important;
+             font-size: 0.9rem !important;
+             text-transform: none !important;
+             letter-spacing: 0.025em !important;
+             border: 1px solid #e5e7eb !important;
+             display: inline-flex !important;
+             align-items: center !important;
+             gap: 0.5rem !important;
+             font-family: 'Hanken Grotesk', system-ui, sans-serif !important;
+           }
+           
+           #formModal .btn-secondary:hover {
+               background-color: #f9fafb !important;
+               border-color: #d1d5db !important;
+               transform: translateY(-1px) !important;
+               box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+           }
          
          /* Estilos para la información del turno */
          .turn-info-display {
@@ -713,12 +763,40 @@ z-index: 9999;
          /* Estilos para las etiquetas del formulario */
          #formModal label {
              display: block;
-             margin-bottom: 0.5rem;
+             margin-bottom: 0.75rem;
              font-weight: 600;
-             font-size: 0.85rem;
+             font-size: 0.9rem;
              color: #374151;
-             text-transform: uppercase;
-             letter-spacing: 0.5px;
+             text-transform: none;
+             letter-spacing: 0.025em;
+             font-family: 'Hanken Grotesk', system-ui, sans-serif !important;
+         }
+         
+         /* Contenedor de botones */
+         #formModal .form-actions {
+             display: flex;
+             justify-content: flex-end;
+             gap: 1rem;
+             margin-top: 2rem;
+             padding-top: 1.5rem;
+             border-top: 1px solid #f3f4f6;
+         }
+         
+         /* Texto explicativo del formulario */
+         #formModal .form-instructions {
+             margin: 1.5rem 0;
+             padding: 1rem;
+             background-color: #f8fafc;
+             border-radius: 0.5rem;
+             border-left: 4px solid #863DFF;
+         }
+         
+         #formModal .form-instructions p {
+             margin: 0;
+             font-size: 0.9rem;
+             color: #6b7280;
+             line-height: 1.5;
+             font-family: 'Hanken Grotesk', system-ui, sans-serif;
          }
          
          /* Layout horizontal para selectores de agenda */
@@ -827,11 +905,11 @@ z-index: 9999;
          }
          
          /* Estilos para la información del turno dentro del modal */
-         .turn-info-container {
-             padding: 15px;
-             max-height: 70vh;
-             overflow-y: auto;
-         }
+                   .turn-info-container {
+              padding: 20px;
+              max-height: 80vh;
+              overflow-y: auto;
+          }
          
          /* Título de éxito más compacto */
          .turn-success-title {
@@ -1020,32 +1098,189 @@ z-index: 9999;
              background: #94a3b8;
          }
          
-         /* Scrollbar personalizado para las tarjetas del modal de agendas */
-         #popupModal .especialidad-cards::-webkit-scrollbar,
-         #popupModal .sucursal-cards::-webkit-scrollbar,
-         #popupModal .sala-cards::-webkit-scrollbar {
-             width: 6px;
-         }
-         
-         #popupModal .especialidad-cards::-webkit-scrollbar-track,
-         #popupModal .sucursal-cards::-webkit-scrollbar-track,
-         #popupModal .sala-cards::-webkit-scrollbar-track {
-             background: #f1f5f9;
-             border-radius: 3px;
-         }
-         
-         #popupModal .especialidad-cards::-webkit-scrollbar-thumb,
-         #popupModal .sucursal-cards::-webkit-scrollbar-thumb,
-         #popupModal .sala-cards::-webkit-scrollbar-thumb {
-             background: #cbd5e1;
-             border-radius: 3px;
-         }
-         
-         #popupModal .especialidad-cards::-webkit-scrollbar-thumb:hover,
-         #popupModal .sucursal-cards::-webkit-scrollbar-thumb:hover,
-         #popupModal .sala-cards::-webkit-scrollbar-thumb:hover {
-             background: #94a3b8;
-         }
+                   /* Scrollbar personalizado para las tarjetas del modal de agendas */
+          #popupModal .especialidad-cards::-webkit-scrollbar,
+          #popupModal .sucursal-cards::-webkit-scrollbar,
+          #popupModal .sala-cards::-webkit-scrollbar {
+              width: 6px;
+          }
+          
+          #popupModal .especialidad-cards::-webkit-scrollbar-track,
+          #popupModal .sucursal-cards::-webkit-scrollbar-track,
+          #popupModal .sala-cards::-webkit-scrollbar-track {
+              background: #f1f5f9;
+              border-radius: 3px;
+          }
+          
+          #popupModal .especialidad-cards::-webkit-scrollbar-thumb,
+          #popupModal .sucursal-cards::-webkit-scrollbar-thumb,
+          #popupModal .sala-cards::-webkit-scrollbar-thumb {
+              background: #cbd5e1;
+              border-radius: 3px;
+          }
+          
+          #popupModal .especialidad-cards::-webkit-scrollbar-thumb:hover,
+          #popupModal .sucursal-cards::-webkit-scrollbar-thumb:hover,
+          #popupModal .sala-cards::-webkit-scrollbar-thumb:hover {
+              background: #94a3b8;
+          }
+          
+          /* Estilos para la videollamada embebida en el modal */
+          .video-call-container {
+              padding: 20px;
+              max-height: 80vh;
+              overflow-y: auto;
+          }
+          
+          .video-call-header {
+              text-align: center;
+              margin-bottom: 20px;
+          }
+          
+          .video-call-title {
+              font-size: 1.5rem;
+              font-weight: 700;
+              color: #863DFF;
+              margin-bottom: 0.5rem;
+          }
+          
+          .video-call-subtitle {
+              font-size: 1rem;
+              color: #6b7280;
+              margin-bottom: 0;
+          }
+          
+          .video-call-frame-container {
+              width: 100%;
+              height: 500px;
+              margin: 20px 0;
+              border-radius: 12px;
+              overflow: hidden;
+              box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+              border: 2px solid #e5e7eb;
+          }
+          
+          .video-call-iframe {
+              width: 100%;
+              height: 100%;
+              border: none;
+              background-color: #f9fafb;
+          }
+          
+          .video-call-actions {
+              display: flex;
+              justify-content: center;
+              gap: 1rem;
+              margin-top: 20px;
+              padding-top: 20px;
+              border-top: 1px solid #e5e7eb;
+          }
+          
+          .video-call-back-btn {
+              background-color: #6b7280 !important;
+              color: white !important;
+              border: none !important;
+              padding: 0.75rem 1.5rem !important;
+              border-radius: 0.75rem !important;
+              font-weight: 600 !important;
+              font-size: 0.9rem !important;
+              transition: all 0.2s ease !important;
+              cursor: pointer;
+          }
+          
+          .video-call-back-btn:hover {
+              background-color: #4b5563 !important;
+              transform: translateY(-2px) !important;
+              box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3) !important;
+          }
+          
+          .video-call-close-btn {
+              background-color: #dc3545 !important;
+              color: white !important;
+              border: none !important;
+              padding: 0.75rem 1.5rem !important;
+              border-radius: 0.75rem !important;
+              font-weight: 600 !important;
+              font-size: 0.9rem !important;
+              transition: all 0.2s ease !important;
+              cursor: pointer;
+          }
+          
+          .video-call-close-btn:hover {
+              background-color: #c82333 !important;
+              transform: translateY(-2px) !important;
+              box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3) !important;
+          }
+          
+          /* Botón de videollamada en la información del turno */
+          .video-call-btn {
+              background: linear-gradient(135deg, #28a745, #20c997) !important;
+              color: white !important;
+              border: none !important;
+              padding: 0.5rem 1rem !important;
+              border-radius: 0.5rem !important;
+              font-weight: 600 !important;
+              font-size: 0.8rem !important;
+              transition: all 0.2s ease !important;
+              cursor: pointer;
+              text-decoration: none !important;
+              display: inline-block !important;
+          }
+          
+          .video-call-btn:hover {
+              background: linear-gradient(135deg, #218838, #1ea085) !important;
+              transform: translateY(-1px) !important;
+              box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3) !important;
+              color: white !important;
+          }
+          
+                        /* Responsive para videollamada */
+              @media (max-width: 768px) {
+                  .video-call-frame-container {
+                      height: 400px;
+                      margin: 15px 0;
+                  }
+              
+              .video-call-title {
+                  font-size: 1.25rem;
+              }
+              
+              .video-call-subtitle {
+                  font-size: 0.9rem;
+              }
+              
+              .video-call-actions {
+                  flex-direction: column;
+                  gap: 0.75rem;
+              }
+              
+              .video-call-back-btn,
+              .video-call-close-btn {
+                  width: 100%;
+                  text-align: center;
+              }
+              
+              /* Responsive para formulario */
+              #formModal .form-row {
+                  flex-direction: column;
+                  gap: 0;
+              }
+              
+              #formModal .form-col {
+                  margin-bottom: 1rem;
+              }
+              
+              #formModal .form-actions {
+                  flex-direction: column;
+                  gap: 0.75rem;
+              }
+              
+              #formModal .btn-primary,
+              #formModal .btn-secondary {
+                  width: 100%;
+                  justify-content: center;
+              }
+          }
          
          @media (max-width: 768px) {
              .turn-info-row {
@@ -1066,10 +1301,10 @@ z-index: 9999;
                  font-size: 0.85rem;
              }
              
-             .turn-info-container {
-                 padding: 12px;
-                 max-height: 75vh;
-             }
+                           .turn-info-container {
+                  padding: 18px;
+                  max-height: 85vh;
+              }
              
              .turn-success-title {
                  font-size: 1.1rem !important;
@@ -1092,11 +1327,11 @@ z-index: 9999;
                  width: 100%;
              }
              
-             #popupModal .modal-content {
-                 width: 98%;
-                 max-width: 600px;
-                 padding: 20px;
-             }
+                           #popupModal .modal-content {
+                  width: 98%;
+                  max-width: 800px;
+                  padding: 25px;
+              }
          }
          
          /* Estilos para el contenedor de errores */
@@ -1774,24 +2009,48 @@ z-index: 9999;
     <div id="message" class="hidden p-4 rounded-lg mb-4"></div>
 
     <form id="reservaForm" class="space-y-4" onsubmit="return handleSubmit(event)">
-      <label>Nombre</label>
-      <input type="text" name="firstName" required class="input-field" />
+      <!-- Primera fila: Nombre y Apellido -->
+      <div class="form-row">
+        <div class="form-col">
+          <label>Nombre</label>
+          <input type="text" name="firstName" required class="input-field" />
+        </div>
+        <div class="form-col">
+          <label>Apellido</label>
+          <input type="text" name="lastName" required class="input-field" />
+        </div>
+      </div>
 
-      <label>Apellido</label>
-      <input type="text" name="lastName" required class="input-field" />
+      <!-- Segunda fila: DNI y Teléfono -->
+      <div class="form-row">
+        <div class="form-col">
+          <label>DNI</label>
+          <input type="text" name="dni" required class="input-field" />
+        </div>
+        <div class="form-col">
+          <label>Teléfono</label>
+          <input type="tel" name="phone" required class="input-field" />
+        </div>
+      </div>
 
-      <label>DNI</label>
-      <input type="text" name="dni" required class="input-field" />
+      <!-- Tercera fila: Email (ancho completo) -->
+      <div class="form-col-full">
+        <label>Email</label>
+        <input type="email" name="email" required class="input-field" />
+      </div>
 
-      <label>Email</label>
-      <input type="email" name="email" required class="input-field" />
+      <!-- Texto explicativo -->
+      <div class="form-instructions">
+        <p>Al continuar, te asignaremos un turno y verás una sala de espera. Cuando el agente esté listo, podrás iniciar una videollamada.</p>
+      </div>
 
-      <label>Teléfono</label>
-      <input type="tel" name="phone" required class="input-field" />
-
-      <div class="d-flex justify-content-between pt-3">
-        <button type="button" class="boton-fecha" id="submitBtn" onclick="reservarTurnoReal()">Reservar Turno</button>
-        <button type="button" class="boton-fecha" onclick="hideForm()">Cancelar</button>
+      <!-- Botones de acción -->
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" onclick="hideForm()">Cancelar</button>
+        <button type="button" class="btn-primary" id="submitBtn" onclick="reservarTurnoReal()">
+          <i class="bi bi-check-lg"></i>
+          Generar turno
+        </button>
       </div>
     </form>
   </div>
@@ -2389,16 +2648,16 @@ window.hideForm = hideForm;
                                  <div class="turn-info-label">Sala:</div>
                                  <div class="turn-info-value">${turnInfo.salaEspera}</div>
                              </div>
-                             ${turnInfo.videoCallUrl ? `
-                             <div class="turn-info-row video-call-row">
-                                 <div class="turn-info-label">Videollamada:</div>
-                                 <div class="turn-info-value">
-                                     <a href="${turnInfo.videoCallUrl}" target="_blank" class="video-call-link-compact">
-                                         🔗 Unirse
-                                     </a>
-                                 </div>
-                             </div>
-                             ` : ''}
+                                                           ${turnInfo.videoCallUrl ? `
+                              <div class="turn-info-row video-call-row">
+                                  <div class="turn-info-label">Videollamada:</div>
+                                  <div class="turn-info-value">
+                                      <button onclick="showVideoCall('${turnInfo.videoCallUrl}')" class="video-call-btn">
+                                          🎥 Unirse
+                                      </button>
+                                  </div>
+                              </div>
+                              ` : ''}
                          </div>
                          
                          <div class="turn-actions">
@@ -2407,15 +2666,27 @@ window.hideForm = hideForm;
                      </div>
                  `;
                  
-                 // Ocultar el formulario y mostrar la información del turno
-                 form.style.display = 'none';
-                 message.innerHTML = turnInfoHTML;
-                 message.classList.remove('hidden');
-                 
-                 // Iniciar el polling del estado del turno
-                 if (turnCode && turnCode !== 'N/A' && turnCode !== 'No disponible') {
-                     startTurnStatusPolling(turnCode, turnInfo);
-                 }
+                                   // Ocultar el formulario y mostrar la información del turno
+                  form.style.display = 'none';
+                  message.innerHTML = turnInfoHTML;
+                  message.classList.remove('hidden');
+                  
+                  // Guardar la información del turno para poder volver desde la videollamada
+                  window.lastTurnInfo = {
+                      turno: turnInfo.turno,
+                      tiempoEspera: turnInfo.tiempoEspera,
+                      especialidad: turnInfo.especialidad,
+                      salaEspera: turnInfo.salaEspera,
+                      codigo: turnInfo.codigo,
+                      videoCallUrl: turnInfo.videoCallUrl
+                  };
+                  
+                  console.log('✅ Información del turno guardada para navegación:', window.lastTurnInfo);
+                  
+                  // Iniciar el polling del estado del turno
+                  if (turnCode && turnCode !== 'N/A' && turnCode !== 'No disponible') {
+                      startTurnStatusPolling(turnCode, turnInfo);
+                  }
                  
              } catch (error) {
                  console.error('Error en showTurnInfoInModal:', error);
@@ -2649,20 +2920,20 @@ window.hideForm = hideForm;
                              if (data.status === 'ANNOUNCED') {
                                  statusText = 'Lo estamos llamando';
                                  
-                                 // Si el estado es ANNOUNCED y hay URL de videollamada, mostrarla
-                                 if (turnInfo && turnInfo.videoCallUrl) {
-                                     const videoCallUrl = turnInfo.videoCallUrl + '?videocallUser=mobile';
-                                     statusElement.innerHTML = `
-                                         <div>${statusText}</div>
-                                         <div style="margin-top: 10px;">
-                                             <a href="${videoCallUrl}" target="_blank" class="video-call-link">
-                                                 🔗 Unirse a la videollamada
-                                             </a>
-                                         </div>
-                                     `;
-                                 } else {
-                                     statusElement.textContent = statusText;
-                                 }
+                                                                   // Si el estado es ANNOUNCED y hay URL de videollamada, mostrarla
+                                  if (turnInfo && turnInfo.videoCallUrl) {
+                                      const videoCallUrl = turnInfo.videoCallUrl + '?videocallUser=mobile';
+                                      statusElement.innerHTML = `
+                                          <div>${statusText}</div>
+                                          <div style="margin-top: 10px;">
+                                              <button onclick="showVideoCall('${videoCallUrl}')" class="video-call-btn">
+                                                  🎥 Unirse a la videollamada
+                                              </button>
+                                          </div>
+                                      `;
+                                  } else {
+                                      statusElement.textContent = statusText;
+                                  }
                              } else if (data.status === 'WAITING_TO_BE_CALLED') {
                                  statusText = 'En breve lo llamaremos';
                                  statusElement.textContent = statusText;
@@ -2745,9 +3016,90 @@ window.hideForm = hideForm;
              }
          }
          
-         // Hacer las funciones disponibles globalmente
-         window.startTurnStatusPolling = startTurnStatusPolling;
-         window.stopTurnStatusPolling = stopTurnStatusPolling;
+                   // Hacer las funciones disponibles globalmente
+          window.startTurnStatusPolling = startTurnStatusPolling;
+          window.stopTurnStatusPolling = stopTurnStatusPolling;
+          window.showVideoCall = showVideoCall;
+          
+          // Función para mostrar la videollamada en el modal
+          function showVideoCall(videoUrl) {
+              try {
+                  console.log('Mostrando videollamada en el modal:', videoUrl);
+                  
+                  // Obtener elementos del DOM
+                  const message = document.getElementById('message');
+                  
+                  if (!message) {
+                      console.error('No se encontró el elemento message');
+                      return;
+                  }
+                  
+                  // Crear el HTML para la videollamada
+                  const videoCallHTML = `
+                      <div class="video-call-container">
+                          <div class="video-call-header">
+                              <h4 class="video-call-title">🎥 Videollamada en curso</h4>
+                              <p class="video-call-subtitle">Tu consulta virtual está lista</p>
+                          </div>
+                          
+                          <div class="video-call-frame-container">
+                              <iframe 
+                                  src="${videoUrl}" 
+                                  class="video-call-iframe"
+                                  allow="camera; microphone; fullscreen"
+                                  frameborder="0"
+                                  scrolling="no"
+                              ></iframe>
+                          </div>
+                          
+                          <div class="video-call-actions">
+                              <button class="video-call-back-btn" onclick="showTurnInfoInModal(window.lastTurnInfo)">
+                                  ← Volver al turno
+                              </button>
+                              <button class="video-call-close-btn" onclick="hideForm()">
+                                  Cerrar
+                              </button>
+                          </div>
+                      </div>
+                  `;
+                  
+                  // Reemplazar el contenido del mensaje con la videollamada
+                  message.innerHTML = videoCallHTML;
+                  
+                  // Guardar la información del turno para poder volver
+                  if (!window.lastTurnInfo) {
+                      window.lastTurnInfo = {
+                          turno: document.querySelector('.turn-info-value')?.textContent || 'N/A',
+                          tiempoEspera: document.querySelectorAll('.turn-info-value')[1]?.textContent || 'N/A',
+                          especialidad: document.querySelectorAll('.turn-info-value')[2]?.textContent || 'N/A',
+                          salaEspera: document.querySelectorAll('.turn-info-value')[3]?.textContent || 'N/A',
+                          codigo: document.getElementById('turnCodeDisplay')?.textContent || 'N/A',
+                          videoCallUrl: videoUrl
+                      };
+                  }
+                  
+                  console.log('Videollamada mostrada exitosamente en el modal');
+                  
+              } catch (error) {
+                  console.error('Error al mostrar la videollamada:', error);
+                  
+                  // Mostrar mensaje de error
+                  const message = document.getElementById('message');
+                  if (message) {
+                      message.innerHTML = `
+                          <div class="error-container">
+                              <h4 class="text-lg font-semibold text-center mb-4" style="color: #dc3545;">❌ Error al cargar la videollamada</h4>
+                              <p class="text-center mb-4">No se pudo cargar la videollamada. Intenta nuevamente.</p>
+                              <div class="text-center">
+                                  <button class="boton-fecha" onclick="showTurnInfoInModal(window.lastTurnInfo)">
+                                      Volver al turno
+                                  </button>
+                              </div>
+                          </div>
+                      `;
+                  }
+              }
+          }
          
          // Función para mostrar información del turno (modal flotante)
          function showTurnInfo(turnInfo) {
